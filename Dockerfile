@@ -1,7 +1,7 @@
 ### STAGE 1: Build ###
 
 # We label our stage as ‘builder’
-FROM node:12.14-alpine as builder
+FROM node:12.20-alpine as builder
 #RUN apk add g++ make python
 
 COPY package.json package-lock.json ./
