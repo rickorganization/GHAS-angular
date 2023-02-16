@@ -6,7 +6,7 @@ FROM node:12.20-alpine as builder
 
 COPY package.json package-lock.json ./
 
-ARG profile=-prod
+ARG profile
 
 ## Storing node modules on a separate layer will prevent unnecessary npm installs at each build
 RUN npm ci && mkdir /ng-app && mv ./node_modules ./ng-app
