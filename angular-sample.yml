@@ -1,0 +1,41 @@
+trigger: none
+pr: none
+variables:
+
+  frontendImageRepo: 'abjanani/bank-$(profile)'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: '$(Build.BuildId)'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+stages:
+  - stage: Build_FrontEnd
+    displayName: Build and Push FrontEnd
+    jobs:
+      - job: BuildPushDocker
+        displayName: Build and Push Docker Image
+        pool:
+          vmImage: $(vmImageName)
+          demands: agent.name -equals $(agent_name)
+        steps:
+          - task: Docker@1
+            displayName: Build docker image
+            inputs:
+                azureSubscriptionEndpoint: azure
+                azureContainerRegistry: janani.azurecr.io
+                repository: $(frontendImageRepo)
+                command: build
+                dockerfile: $(dockerfilePath)
+                arguments: --build-arg profile=$(profile)
+                tags: |
+                  $(tag)
+          - task: Docker@1
+            displayName: Push docker image to container registry
+            inputs:
+                azureSubscriptionEndpoint: azure
+                azureContainerRegistry: janani.azurecr.io
+                repository: $(frontendImageRepo)
+                command: push
+                tags: |
+                  $(tag)
+                
