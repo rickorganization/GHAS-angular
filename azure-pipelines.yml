@@ -1,0 +1,26 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+pr: none
+variables:
+  vmImageName: 'ubuntu-latest'
+stages:
+  - stage: 
+    displayName: Build
+    jobs:
+      - job: Test
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: dependency-check-build-task@6
+            inputs:
+              projectName: 'angular'
+              scanPath: 'ABJANANI / bank'
+              format: 'HTML'
+              reportsDirectory: 'ABJANANI / bank'
+              reportFilename: 'dependency-check-report'
+          
