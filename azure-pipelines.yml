@@ -2,7 +2,7 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
-
+e34d4d27471827163b423b8f795b307a
 trigger:
 - master
 pr: none
@@ -23,5 +23,5 @@ stages:
               format: 'HTML'
               reportsDirectory: 'ABJANANI / bank'
               reportFilename: 'dependency-check-report'
-          
-e34d4d27471827163b423b8f795b307a
+             
+
